@@ -1,0 +1,23 @@
+# Maven
+target/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+logs/
+*.log
+
+# Screenshots
+screenshots/
+src/test/resources/screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven Wrapper
+!.mvn/wrapper/maven-wrapper.jar
