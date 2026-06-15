@@ -6,12 +6,19 @@ import pages.HDAccInfoPage;
 import pages.HDHomePage;
 import flows.LoginFlowHD;
 import base.BaseTest;
+import org.testng.Assert;
+import data.ProfileDataProvider;
 
 
-public class HDAccountVerifyTest extends BaseTest{
+public class HDProfileUpdateTest extends BaseTest{
+    @Test(
+            dataProvider = "locations",
+            dataProviderClass = ProfileDataProvider.class
+    )
+    public void verifyUpdateLocation(
+            String location
+    ) {
 
-    @Test
-    public void verifyHDPageReturnCorrectEmail() throws InterruptedException {
         HDHomePage homePage =
                 new HDHomePage(driver);
         HDAccInfoPage accInfoPage = new HDAccInfoPage(driver);
@@ -30,8 +37,13 @@ public class HDAccountVerifyTest extends BaseTest{
 
         homePage.clickProfile();
         homePage.clickAccInfo();
-        //page 2
-        accInfoPage.VerifyEmail();
-    }
 
+        accInfoPage.changeLocation(location);
+
+        Assert.assertEquals(
+                accInfoPage.getLocation(),
+                location
+        );
+        accInfoPage.clickSave();
+    }
 }
