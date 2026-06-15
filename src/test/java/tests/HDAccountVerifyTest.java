@@ -1,6 +1,7 @@
 package tests;
 import config.ConfigReader;
 import data.TestDataReader;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HDAccInfoPage;
 import pages.HDHomePage;
@@ -9,24 +10,36 @@ import base.BaseTest;
 
 
 public class HDAccountVerifyTest extends BaseTest{
+    private HDHomePage homePage;
 
-    @Test
-    public void verifyHDPageReturnCorrectEmail() throws InterruptedException {
-        HDHomePage homePage =
+    private HDAccInfoPage accInfoPage;
+
+    private LoginFlowHD loginFlow;
+
+    @BeforeMethod
+    public void loginBeforeEachTest() {
+
+        homePage =
                 new HDHomePage(driver);
-        HDAccInfoPage accInfoPage = new HDAccInfoPage(driver);
 
-        LoginFlowHD loginFlow =
+        accInfoPage =
+                new HDAccInfoPage(driver);
+
+        loginFlow =
                 new LoginFlowHD(homePage);
+
         driver.get(
                 ConfigReader.getBaseUrl()
         );
 
         loginFlow.login(
                 TestDataReader.getUsername(),
-
                 TestDataReader.getPassword()
         );
+    }
+    @Test
+    public void verifyHDPageReturnCorrectEmail() throws InterruptedException
+    {
 
         homePage.clickProfile();
         homePage.clickAccInfo();

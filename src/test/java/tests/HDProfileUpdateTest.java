@@ -1,6 +1,7 @@
 package tests;
 import config.ConfigReader;
 import data.TestDataReader;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HDAccInfoPage;
 import pages.HDHomePage;
@@ -11,29 +12,43 @@ import data.ProfileDataProvider;
 
 
 public class HDProfileUpdateTest extends BaseTest{
-    @Test(
-            dataProvider = "locations",
-            dataProviderClass = ProfileDataProvider.class
-    )
-    public void verifyUpdateLocation(
-            String location
-    ) {
+    private HDHomePage homePage;
 
-        HDHomePage homePage =
+    private HDAccInfoPage accInfoPage;
+
+    private LoginFlowHD loginFlow;
+
+    @BeforeMethod
+    public void loginBeforeEachTest() {
+
+        homePage =
                 new HDHomePage(driver);
-        HDAccInfoPage accInfoPage = new HDAccInfoPage(driver);
 
-        LoginFlowHD loginFlow =
+        accInfoPage =
+                new HDAccInfoPage(driver);
+
+        loginFlow =
                 new LoginFlowHD(homePage);
+
         driver.get(
                 ConfigReader.getBaseUrl()
         );
 
         loginFlow.login(
                 TestDataReader.getUsername(),
-
                 TestDataReader.getPassword()
         );
+    }
+    @Test(
+            dataProvider = "locations",
+            dataProviderClass = ProfileDataProvider.class
+    )
+    public void verifyUpdateLocation(
+            String location
+    )
+    {
+
+
 
         homePage.clickProfile();
         homePage.clickAccInfo();
