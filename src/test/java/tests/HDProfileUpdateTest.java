@@ -7,9 +7,11 @@ import pages.HDAccInfoPage;
 import pages.HDHomePage;
 import flows.LoginFlowHD;
 import base.BaseTest;
+import org.testng.Assert;
+import data.ProfileDataProvider;
 
 
-public class HDAccountVerifyTest extends BaseTest{
+public class HDProfileUpdateTest extends BaseTest{
     private HDHomePage homePage;
 
     private HDAccInfoPage accInfoPage;
@@ -37,14 +39,26 @@ public class HDAccountVerifyTest extends BaseTest{
                 TestDataReader.getPassword()
         );
     }
-    @Test
-    public void verifyHDPageReturnCorrectEmail() throws InterruptedException
+    @Test(
+            dataProvider = "locations",
+            dataProviderClass = ProfileDataProvider.class
+    )
+    public void verifyUpdateLocation(
+            String location
+    )
     {
+
+
 
         homePage.clickProfile();
         homePage.clickAccInfo();
-        //page 2
-        accInfoPage.VerifyEmail();
-    }
 
+        accInfoPage.changeLocation(location);
+
+        Assert.assertEquals(
+                accInfoPage.getLocation(),
+                location
+        );
+        accInfoPage.clickSave();
+    }
 }

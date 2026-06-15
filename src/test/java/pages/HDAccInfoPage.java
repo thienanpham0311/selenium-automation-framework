@@ -13,6 +13,9 @@ public class HDAccInfoPage extends BasePage {
     }
 
     private By emailValue = By.xpath("//dd[contains(.,'jiroupham@gmail.com')]");
+    private By change = By.xpath("//a[contains(@href, '/account/username')]//span[contains(text(), 'Thay đổi')]");
+    private By locationTextBox = By.xpath("//input[contains(@name, 'profile[location]')]");
+    private By saveBtn = By.xpath("(//button[@type='submit' and contains(.,'Lưu')])[last()]");
 
     public String getEmail() {
         return getText(emailValue);
@@ -33,6 +36,21 @@ public class HDAccInfoPage extends BasePage {
         Assert.assertTrue(
                 getEmail().contains("jiroupham@gmail.com"),
                 "Email is incorrect"
+        );
+    }
+    public void changeLocation(String location)
+    {
+        type(locationTextBox, location);
+    }
+    public void clickSave()
+    {
+        click(saveBtn);
+    }
+    public String getLocation()
+    {
+        return getAttribute(
+                locationTextBox,
+                "value"
         );
     }
 }
