@@ -1,5 +1,6 @@
 package tests;
 import config.ConfigReader;
+import data.TestDataReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -15,7 +16,7 @@ import config.ConfigReader;
 public class HDAccountVerifyTest extends BaseTest{
 
     @Test
-    public void verifyLogin() throws InterruptedException {
+    public void verifyHDPageReturnCorrectEmail() throws InterruptedException {
         HDHomePage homePage =
                 new HDHomePage(driver);
         HDAccInfoPage accInfoPage = new HDAccInfoPage(driver);
@@ -27,8 +28,9 @@ public class HDAccountVerifyTest extends BaseTest{
         );
 
         loginFlow.login(
-                "jiroupham",
-                "onlylove"
+                TestDataReader.getUsername(),
+
+                TestDataReader.getPassword()
         );
 
         homePage.clickProfile();
